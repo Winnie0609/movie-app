@@ -1,4 +1,4 @@
-# movie-search-app
+# Movie App
 A movie app built with react.
 
 ## Demo
