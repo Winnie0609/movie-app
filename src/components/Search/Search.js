@@ -11,7 +11,7 @@ function Search(){
 
     const searchMovies = async (e) => {
         e.preventDefault()
-        const url = `${API_URL}/search/movie/?api_key=${API_KEY}&language=en-US&query=${query}`
+        const url = `${API_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}`
     
         try{
             const res = await fetch(url)
