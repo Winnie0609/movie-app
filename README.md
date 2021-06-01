@@ -2,7 +2,7 @@
 A movie app built with react.
 
 ## Demo
-[Blog]()  
+[Blog](https://winnie0609.github.io/2021/04/17/0417-movie/)  
 [Live Demo](https://winnie0609.github.io/movie-app/)  
 
 ![0519-movie-search-app-fast](https://user-images.githubusercontent.com/49323767/118773974-ec6ca080-b8b7-11eb-978f-b0b7160b83c5.gif)
