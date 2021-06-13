@@ -31,7 +31,9 @@ function NavBar(){
                             <li><i className="fas fa-search link"></i></li>
                         </Link>
                         
-                        <li><i className="far fa-user"></i></li>
+                        <Link to="/SignIn">
+                            <li><i className="far fa-user"></i></li>
+                        </Link>
                     </ul>
                 </div>
             </Nav>

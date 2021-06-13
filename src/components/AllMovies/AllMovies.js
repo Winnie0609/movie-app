@@ -8,7 +8,7 @@ const API_KEY = process.env.REACT_APP_API_KEY
 
 function AllMovies(){
     const [ AllMovies, setAllMovies ] = useState([]) 
-    const [ page, setPage ] = useState(5)
+    const [ page, setPage ] = useState(3)
     
     const all_movie_url = `${API_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`
 

@@ -4,6 +4,8 @@ import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import { Info } from "./ContentModal_styles"
+import Carousel from "../Carousel/Carousel"
+import '../../index.css'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
@@ -50,7 +52,7 @@ function ContentModal({children, id}) {
     }
 
     async function fetchVideo() {
-        console.log(video_url)
+        // console.log(video_url)
         const res = await fetch(video_url)
         const data = await res.json()
         setVideo(data.results[0]?.key)
@@ -67,7 +69,7 @@ function ContentModal({children, id}) {
             <button 
                 type="button" 
                 onClick={handleOpen} 
-                style={{margin:"0" , padding:"0", backgroundColor:"transparent", border:"none", cursor:"pointer"}}
+                style={{margin:"0" , padding:"0", backgroundColor:"transparent", border:"none", cursor:"pointer", width:"100%"}}
             >
                 {children}
             </button>
@@ -102,21 +104,22 @@ function ContentModal({children, id}) {
                                         <p className="vote_overview"><i className="fas fa-star"></i>{content.vote_average}</p>
                                     </div>
 
-                                    {content.tagline && (
-                                        <p className="movie_tagline">{content.tagline}</p>
-                                    )}
+                                    {content.tagline && (<p className="movie_tagline">{content.tagline}</p>)}
 
                                     <p className="movie_overview">{content.overview}</p>
                                     
+                                    <Carousel id={id}/>
+
+                                    <a 
+                                        href={`https://www.youtube.com/watch?v=${video}`}
+                                        target="__blank"
+                                    > 
+                   
                                     <button>
-                                        <a 
-                                            href={`https://www.youtube.com/watch?v=${video}`}
-                                            target="__blank"
-                                        > 
-                                            <i className="fab fa-youtube"></i>
-                                            Watch the Trailer
-                                        </a>
+                                        <i className="fab fa-youtube"></i>
+                                        Watch the Trailer
                                     </button>
+                                    </a>
                                 </div>
                             </>
                             )}

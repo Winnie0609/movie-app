@@ -57,13 +57,10 @@ export const Info = styled.div`
         border: none;
         background-color: #032541;
         margin: 20px 0;
+        color:  #ffffff;
+        cursor: pointer;
     }
 
-    a{
-        text-decoration: none;
-        color: #ffffff;
-        width: 100px;
-    }
 
     i{
         margin-right: 10px;

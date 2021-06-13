@@ -4,6 +4,7 @@ import FavouritePage from "./pages/FavouritePage"
 import HomePage from "./pages/Home"
 import SearchPage from "./pages/SearchPage"
 import AllMoviesPage from "./pages/AllMoviesPages"
+import SigninPage from "./pages/SignInPage"
 
 function App() {
   return (
@@ -22,6 +23,10 @@ function App() {
 
       <Route path="/Favourite">
         <FavouritePage/>
+      </Route>
+
+      <Route path="/SignIn">
+        <SigninPage/>
       </Route>
 
     </Switch>

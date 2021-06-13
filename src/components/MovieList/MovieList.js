@@ -15,13 +15,11 @@ function LatestMovieList(){
         console.log(latestMovies.results)
     }
 
-
     useEffect(() => {
         fetchLatestMovies()
     },[])
 
     return(
-        <>
         <Container>
             <h2>Up Comming</h2>
             <LatestList>
@@ -41,7 +39,6 @@ function LatestMovieList(){
                 ))}
             </LatestList>
         </Container>
-        </>
     )
 }
 
