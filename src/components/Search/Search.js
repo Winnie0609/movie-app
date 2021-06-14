@@ -1,6 +1,5 @@
 import React, { useState} from 'react'
 import { Container, Form, SearchResult, Heart } from './Search_styles'
-import ContentModal from '../ContentModal/ContentModal'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
@@ -36,7 +35,6 @@ function Search(){
         const newFavouriteList = [...favouriteList, item]
         setFavouriteList(newFavouriteList)
         saveToLocalStorage(newFavouriteList)
-        // console.log(newFavouriteList)
     }
 
     return(
@@ -54,7 +52,6 @@ function Search(){
 
             <Container>
                 <SearchResult>
-                {/* <ContentModal key={movie.imdb_id} id={movie.id} > */}
                     {movie.map((item) => (
                         <div className="card-info" key={item.id}>
                             <img 
@@ -77,7 +74,7 @@ function Search(){
                             </div>
                         </div>
                     ))}
-                {/* </ContentModal> */}
+
                 </SearchResult>
                 
                 {movie.length !== 0 && (
@@ -86,7 +83,6 @@ function Search(){
                         <i className="fas fa-arrow-circle-up"></i>
                     </span>
                 )}
-                
             </Container>
         </Container>
     )

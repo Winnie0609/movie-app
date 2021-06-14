@@ -10,7 +10,7 @@ export const Container = styled.div`
     margin-top: 30px;
 `
 
-function CustomPagination({ setPage, numberOfPages = 1 }){
+function CustomPagination({ setPage, numOfPages = 10 }){
     const handlePageChange = (page) => {
         setPage(page)
         window.scroll(0,0)
@@ -20,7 +20,7 @@ function CustomPagination({ setPage, numberOfPages = 1 }){
         <Container> 
             <Pagination 
                 onChange={(e) => handlePageChange(e.target.textContent)}
-                count={numberOfPages} 
+                count={numOfPages} 
                 shape="rounded"
                 hideNextButton
                 hidePrevButton

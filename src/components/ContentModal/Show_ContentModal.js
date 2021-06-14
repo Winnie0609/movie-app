@@ -26,11 +26,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ContentModal({children, id, page}) {
+function ShowContentModal(props) {
+    const tvId = props.tvId
+    const children = props.children
+  
     const classes = useStyles()
     const [ open, setOpen ] = useState(false)
-    const [ content, setContent ] = useState([])
-    const [ video, setVideo ] = useState([])
+    const [ tvContent, setTvContent ] = useState([])
+    const [ tvVideo, setTvVideo ] = useState()
 
     const handleOpen = () => {
         setOpen(true);
@@ -39,28 +42,28 @@ function ContentModal({children, id, page}) {
     const handleClose = () => {
         setOpen(false);
     }
+    
+        const all_tv_url =`${API_URL}/tv/${tvId}?api_key=${API_KEY}&language=en-US`
+        const tv_video_url = `${API_URL}/tv/${tvId}/videos?api_key=${API_KEY}&language=en-US`
 
-    const all_movie_url = `${API_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`
-    const video_url = `${API_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
-
-    async function fetchData() {
-        const res = await fetch(all_movie_url)
+    async function fetchTvData() {
+        const res = await fetch(all_tv_url)
         const data = await res.json()
-        setContent(data)
+        setTvContent(data)
+        // console.log(data.id)
     }
 
-    async function fetchVideo() {
-        const res = await fetch(video_url)
+    async function fetchTvVideo() {
+        const res = await fetch(tv_video_url)
         const data = await res.json()
-        if(data.results[0]){
-            setVideo(data.results[0]?.key)
-        }
+        setTvVideo(data.results[0]?.key)
+        // console.log(data)
     }
 
     useEffect(() => {
-        fetchData()
-        fetchVideo()
-    },[page])
+        fetchTvData()
+        fetchTvVideo()
+    },[])
 
     return (
         <>
@@ -89,28 +92,26 @@ function ContentModal({children, id, page}) {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <Info>
-                            {content && (
+                            {tvContent && (
                             <>
                                 <img 
-                                    src={content.poster_path ? `https://image.tmdb.org/t/p/w500/${content.backdrop_path}` : "https://i.postimg.cc/kMkr3DPH/missing-photo2.png"} 
-                                    alt={content.title}
+                                    src={tvContent.backdrop_path ? `https://image.tmdb.org/t/p/w500/${tvContent.backdrop_path}` : "https://i.postimg.cc/kMkr3DPH/missing-photo2.png"} 
+                                    alt={tvContent.name}
                                 />
 
                                 <div className="movie_info">
                                     <div className="movie_header">
-                                        <p className="movie_title">{content.title}{content.name}</p>
-                                        <p className="movie_date">({(content.release_date ||"-----").substring(0, 4)})</p>
-                                        <p className="vote_overview"><i className="fas fa-star"></i>{content.vote_average}</p>
+                                        <p className="movie_title">{tvContent.name}</p>
+                                        <p className="movie_date">({(tvContent.first_air_date ||"-----").substring(0, 4)})</p>
+                                        <p className="vote_overview"><i className="fas fa-star"></i>{tvContent.vote_average}</p>
                                     </div>
 
-                                    {content.tagline && (<p className="movie_tagline">{content.tagline}</p>)}
-
-                                    <p className="movie_overview">{content.overview}</p>
+                                    <p className="movie_overview">{tvContent.overview}</p>
                                     
-                                    <Carousel id={id} genre="movie"/>
+                                    <Carousel id={tvId} genre="tv"/>
 
                                     <a 
-                                        href={`https://www.youtube.com/watch?v=${video}`}
+                                        href={`https://www.youtube.com/watch?v=${tvVideo}`}
                                         target="__blank"
                                     > 
                    
@@ -126,9 +127,9 @@ function ContentModal({children, id, page}) {
                     </div>
                 </Fade>
         </Modal>
-        </div>
+        </div> 
         </>
-    )       
+    )
 }
 
-export default ContentModal
+export default ShowContentModal

@@ -7,8 +7,9 @@ const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
 
 function AllMovies(){
-    const [ AllMovies, setAllMovies ] = useState([]) 
-    const [ page, setPage ] = useState(3)
+    const [AllMovies, setAllMovies] = useState([]) 
+    const [page, setPage] = useState()
+    const [numOfPages, setNumOfPages] = useState()
     
     const all_movie_url = `${API_URL}/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${page}`
 
@@ -16,20 +17,22 @@ function AllMovies(){
         const res = await fetch(all_movie_url)
         const data = await res.json()
         setAllMovies(data)
-        console.log(AllMovies.results)
+        setNumOfPages(data.total_pages)
+        console.log(numOfPages)
+        // console.log(AllMovies)
     }
 
     useEffect(() => {
         fetchAllMovies()
         window.scroll(0,0)
-    }, [])
+    }, [page])
 
     return(
         <Container>
             <h2>What to Watch</h2>
         
             {AllMovies.results && AllMovies.results.map((movie) => (
-                <ContentModal key={movie.imdb_id} id={movie.id} page={page} >
+                <ContentModal key={movie.imdb_id} id={movie.id} page={page} genre="movie">
                     <MovieCard>
                         <img 
                             src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
@@ -47,7 +50,9 @@ function AllMovies(){
                     </MovieCard> 
                 </ContentModal >
             ))}
-                <CustomPagination setPage={setPage}/>
+                {numOfPages > 1 && (
+                    <CustomPagination setPage={setPage} numberOfPages={numOfPages}/>
+                )}
                 
                 <span 
                     onClick={() => window.scroll(0, 0)}>

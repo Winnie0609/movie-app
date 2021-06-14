@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Container, Background } from '../SignIn/SignIn_styles'
+import { useHistory } from "react-router-dom"
 
 function SignIn(){
     const [isSignIn, setIsSignIn] = useState(true)
     const [emailReg, setEmailReg] = useState("")
     const [passwordReg, setPasswordReg] = useState("")
     const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [password, setPassword] = useState("") 
 
-    function SignIn_API(e) {
+    const history = useHistory()
+
+    async function SignIn_API(e) {
         e.preventDefault()
 
-        fetch("/api/login", {
+        const response = await fetch("/api/login", {
             method: 'POST',
             body: JSON.stringify({
                 email,
@@ -21,6 +24,14 @@ function SignIn(){
                 'Content-Type': 'application/json'
             })
         })
+
+        console.log(response)
+ 
+
+        // if(response.ok){
+        //     console.log("successfully login")
+        // }
+        
     }
     
     function Register_API(e) {
@@ -36,6 +47,7 @@ function SignIn(){
                 'Content-Type': 'application/json'
             })
         })
+     
     }
 
     function SignUp(){

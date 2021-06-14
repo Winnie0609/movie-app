@@ -1,5 +1,7 @@
 import React, {useState, useEffect } from 'react'
 import { Container, LatestList, LatestContainer } from "./MovieList_styles"
+import ContentModal from '../ContentModal/ContentModal'
+import ShowContentModal from '../ContentModal/Show_ContentModal'
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
@@ -25,7 +27,6 @@ function PopularList(){
         const res = await fetch(show_url)
         const data = await res.json()
         setPopularShows(data)
-        // console.log(popularShows.results)
     }
 
     useEffect(() => {
@@ -57,6 +58,7 @@ function PopularList(){
             <Container>
                 <LatestList>
                     {popularMovies.results && popularMovies.results.map((movie) => (
+                    <ContentModal id={movie.id} genre="movie">
                         <div key={movie.id}>
                             <img 
                                 src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
@@ -68,6 +70,7 @@ function PopularList(){
                             <h3 className="movie_title">{movie.title}</h3>
                             <p className="movie_date" >{movie.release_date}</p>
                         </div>
+                    </ContentModal>
                     ))}
                 </LatestList>
             </Container>
@@ -77,6 +80,7 @@ function PopularList(){
             <Container>
                 <LatestList>
                     {popularShows.results && popularShows.results.map((show) => (
+                    <ShowContentModal tvId={show.id} genre="tv">
                         <div key={show.id} className="inde-card">
                             <img 
                                 src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`} 
@@ -84,10 +88,12 @@ function PopularList(){
                                 onError={(e) => {e.target.onerror = null; 
                                     e.target.src="https://i.postimg.cc/kMkr3DPH/missing-photo2.png"}
                                 }
-                            />
+                                />
+                            <p>{show.id}</p>
                             <h3 className="movie_title">{show.name}</h3>
                             <p className="movie_date">{show.first_air_date}</p>
                         </div>
+                     </ShowContentModal>
                     ))}
                 </LatestList>
             </Container>

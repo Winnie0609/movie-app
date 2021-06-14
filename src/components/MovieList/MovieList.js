@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import ContentModal from '../ContentModal/ContentModal'
 import { Container, LatestList } from "./MovieList_styles"
 
 const API_URL = process.env.REACT_APP_API_URL
@@ -12,7 +13,7 @@ function LatestMovieList(){
         const res = await fetch(latest_movie_url)
         const data = await res.json()
         setLatestMovies(data)
-        console.log(latestMovies.results)
+        // console.log(latestMovies.results)
     }
 
     useEffect(() => {
@@ -22,22 +23,23 @@ function LatestMovieList(){
     return(
         <Container>
             <h2>Up Comming</h2>
-            <LatestList>
-                {latestMovies.results && latestMovies.results.map((movie) => (
-                    <div key={movie.id}>
-                        <img 
-                            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
-                            alt={movie.title} 
-                            onError={(e) => {e.target.onerror = null; 
-                                e.target.src="https://i.postimg.cc/kMkr3DPH/missing-photo2.png"}
-                            }
-                        />
-                        
-                        <h3 className="movie_title">{movie.title}</h3>
-                        <p className="movie_date">{movie.release_date}</p>
-                    </div>
-                ))}
-            </LatestList>
+                <LatestList>
+                    {latestMovies.results && latestMovies.results.map((movie) => (
+                    <ContentModal id={movie.id} genre="movie">
+                        <div key={movie.id}>
+                            <img 
+                                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
+                                alt={movie.title} 
+                                onError={(e) => {e.target.onerror = null; 
+                                    e.target.src="https://i.postimg.cc/kMkr3DPH/missing-photo2.png"}
+                                }
+                            />
+                            <h3 className="movie_title">{movie.title}</h3>
+                            <p className="movie_date">{movie.release_date}</p>
+                        </div>
+                    </ContentModal>
+                    ))}
+                </LatestList>
         </Container>
     )
 }

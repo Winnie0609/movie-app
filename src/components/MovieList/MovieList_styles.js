@@ -82,6 +82,7 @@ export const LatestList = styled.div`
         width: 150px;
         height: 210px;
         border-radius: 10px;
+        margin-bottom: 10px;
         object-fit: cover;
         transition: .3s;
     }
