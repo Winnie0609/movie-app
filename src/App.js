@@ -3,7 +3,8 @@ import { Switch, Route } from "react-router-dom"
 import FavouritePage from "./pages/FavouritePage"
 import HomePage from "./pages/Home"
 import SearchPage from "./pages/SearchPage"
-import AllMoviesPage from "./pages/AllMoviesPages"
+import AllMoviesPage from "./pages/AllMoviesPage"
+import AllTvShowsPage from "./pages/AllTvShowsPage"
 import SigninPage from "./pages/SignInPage"
 
 function App() {
@@ -19,6 +20,10 @@ function App() {
 
       <Route path="/Movies">
           <AllMoviesPage/>
+      </Route>
+
+      <Route path="/TvShows">
+          <AllTvShowsPage/>
       </Route>
 
       <Route path="/Favourite">

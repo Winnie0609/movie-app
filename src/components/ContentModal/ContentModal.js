@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Modal from "@material-ui/core/Modal"
 import Backdrop from "@material-ui/core/Backdrop"
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function ContentModal({children, id, page}) {
+function ContentModal({children, id, page, setPage}) {
     const classes = useStyles()
     const [ open, setOpen ] = useState(false)
-    const [ content, setContent ] = useState([])
-    const [ video, setVideo ] = useState([])
+    const [ content, setContent ] = useState()
+    const [ video, setVideo ] = useState()
 
     const handleOpen = () => {
         setOpen(true);
@@ -60,7 +60,7 @@ function ContentModal({children, id, page}) {
     useEffect(() => {
         fetchData()
         fetchVideo()
-    },[page])
+    },[])
 
     return (
         <>
@@ -92,33 +92,37 @@ function ContentModal({children, id, page}) {
                             {content && (
                             <>
                                 <img 
-                                    src={content.poster_path ? `https://image.tmdb.org/t/p/w500/${content.backdrop_path}` : "https://i.postimg.cc/kMkr3DPH/missing-photo2.png"} 
+                                    src={`https://image.tmdb.org/t/p/w500/${content.backdrop_path}`}
                                     alt={content.title}
+                                    onError={(e) => {e.target.onerror = null; 
+                                        e.target.src="https://i.postimg.cc/85XWRWrz/error-image.png"}}
+                                   
                                 />
-
+                                
                                 <div className="movie_info">
                                     <div className="movie_header">
-                                        <p className="movie_title">{content.title}{content.name}</p>
+                                        <p className="movie_title">{content.title}</p>
                                         <p className="movie_date">({(content.release_date ||"-----").substring(0, 4)})</p>
                                         <p className="vote_overview"><i className="fas fa-star"></i>{content.vote_average}</p>
                                     </div>
 
                                     {content.tagline && (<p className="movie_tagline">{content.tagline}</p>)}
-
                                     <p className="movie_overview">{content.overview}</p>
                                     
                                     <Carousel id={id} genre="movie"/>
-
-                                    <a 
-                                        href={`https://www.youtube.com/watch?v=${video}`}
-                                        target="__blank"
-                                    > 
-                   
-                                    <button>
-                                        <i className="fab fa-youtube"></i>
-                                        Watch the Trailer
-                                    </button>
-                                    </a>
+                                    
+                                    {video && 
+                                        <a 
+                                            href={`https://www.youtube.com/watch?v=${video}`}
+                                            target="__blank"
+                                        > 
+                    
+                                        <button>
+                                            <i className="fab fa-youtube"></i>
+                                            Watch the Trailer
+                                        </button>
+                                        </a>
+                                    }
                                 </div>
                             </>
                             )}

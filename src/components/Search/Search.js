@@ -1,5 +1,7 @@
 import React, { useState} from 'react'
 import { Container, Form, SearchResult, Heart } from './Search_styles'
+import ContentModal from '../ContentModal/ContentModal'
+
 
 const API_URL = process.env.REACT_APP_API_URL
 const API_KEY = process.env.REACT_APP_API_KEY
@@ -34,7 +36,8 @@ function Search(){
     const addFavourite = (item) => {
         const newFavouriteList = [...favouriteList, item]
         setFavouriteList(newFavouriteList)
-        saveToLocalStorage(newFavouriteList)
+        // saveToLocalStorage(newFavouriteList)
+        saveToLocalStorage(favouriteList)
     }
 
     return(
@@ -54,11 +57,12 @@ function Search(){
                 <SearchResult>
                     {movie.map((item) => (
                         <div className="card-info" key={item.id}>
+                            <ContentModal id={item.id}>
                             <img 
                                 src={`https://image.tmdb.org/t/p/w500/${item.poster_path}`} 
                                 alt={item.title} 
-                                onError={(e) => {e.target.onerror = null; 
-                                    e.target.src="https://i.postimg.cc/kMkr3DPH/missing-photo2.png"}
+                                onError={(e) => {e.target.onerror = null
+                                    e.target.src="https://i.postimg.cc/85XWRWrz/error-image.png"}
                                 }
                             />
                             
@@ -66,11 +70,13 @@ function Search(){
                                 <h3 className="movie_title">{item.title}</h3>
                                 <p className="movie_vote_average"><i className="fas fa-star"></i> {item.vote_average}</p>
                                 <p className="movie_date">{item.release_date}</p>
-                                <div className="heart" onClick={() => {addFavourite(item)}}>
-                                    <Heart>
-                                        <i className='fa fa-heart' aria-hidden='true' ></i>
-                                    </Heart>
-                                </div>
+                            </div>
+                            </ContentModal>
+
+                            <div className="heart" onClick={() => {addFavourite(item)}}>
+                                <Heart>
+                                    <i className='fa fa-heart' aria-hidden='true' ></i>
+                                </Heart>
                             </div>
                         </div>
                     ))}

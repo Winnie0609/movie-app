@@ -1,17 +1,17 @@
 import React from 'react'
 import Footer from '../components/Footer'
 import NavBar from "../components/Header/NavBar"
-import AllMovies from "../components/AllMovies/AllMovies"
+import AllTvShows from "../components/All/AllTvShows"
 
-function AllMoviesPage(){
+function AllTvShowsPage(){
     return(
         <>
             <NavBar />
-            <AllMovies />
+            <AllTvShows />
             <div style={{height:"100px"}}></div>
             <Footer/>
         </>
     )
 }
 
-export default AllMoviesPage
+export default AllTvShowsPage

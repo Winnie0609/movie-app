@@ -15,7 +15,11 @@ function NavBar(){
                         <Link to="/Movies" className="link">
                             <li>Movies</li>
                         </Link>
+
+                        <Link to="/TvShows" className="link">
                             <li>TV shows</li>
+                        </Link>
+                            
                             <li>More</li>
                     </ul>
                 </div>
