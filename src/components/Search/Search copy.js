@@ -9,7 +9,7 @@ const API_KEY = process.env.REACT_APP_API_KEY
 function Search(){
     const [ query, setQuery ] = useState("")
     const [ movie, setMovie ] = useState([])
-    const [ isfavourite, setisfavourite] = useState(false)
+    const [ favouriteList, setFavouriteList ] = useState([])
 
     const searchMovies = async (e) => {
         e.preventDefault()
@@ -21,6 +21,7 @@ function Search(){
             if(data.results) {
                 setMovie(data.results)
             }
+            console.log(movie)
         } 
         
         catch(err) {
@@ -29,23 +30,13 @@ function Search(){
     }
 
     const saveToLocalStorage = (items) => {
-        localStorage.setItem("react-movie-app-favourites", JSON.stringify(items))
+        localStorage.setItem('react-movie-app-favourites', JSON.stringify(items))
     }
 
     const addFavourite = (item) => {
-        const local_stroage_value = JSON.parse(localStorage.getItem("react-movie-app-favourites")) || []
-
-        if (!(local_stroage_value.some(i => i.id === item.id))){
-            saveToLocalStorage([...local_stroage_value, item])
-        }
-    }
-
-    const heartIcon = () => {
-        if (isfavourite) {
-            return (<i className='fa fa-heart' aria-hidden='true' ></i>)
-        } else {
-            return (<i className="far fa-heart"></i>)
-        }
+        const newFavouriteList = [...favouriteList, item]
+        setFavouriteList(newFavouriteList)
+        saveToLocalStorage(favouriteList)
     }
 
     return(
@@ -83,7 +74,7 @@ function Search(){
 
                             <div className="heart" onClick={() => {addFavourite(item)}}>
                                 <Heart>
-                                    {heartIcon()}
+                                    <i className='fa fa-heart' aria-hidden='true' ></i>
                                 </Heart>
                             </div>
                         </div>

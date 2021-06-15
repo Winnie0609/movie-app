@@ -10,7 +10,6 @@ function NavBar(){
                     <Link to="/">
                         <img src={process.env.PUBLIC_URL + '/image/logo.png'} alt="logo" />
                     </Link> 
-
                     <ul className="nav-left">
                         <Link to="/Movies" className="link">
                             <li>Movies</li>
@@ -27,17 +26,9 @@ function NavBar(){
                 <div className="column-right">
                     <ul>
                         <li className="language">EN</li>
-                        <Link to="/Favourite">
-                            <li><i className="far fa-heart link"></i></li>
-                        </Link>
-                        
-                        <Link to="/Search">
-                            <li><i className="fas fa-search link"></i></li>
-                        </Link>
-                        
-                        <Link to="/SignIn">
-                            <li><i className="far fa-user"></i></li>
-                        </Link>
+                            <li><Link to="/Favourite"><i className="far fa-heart link"></i></Link></li>
+                            <li><Link to="/Search"><i className="fas fa-search link"></i></Link></li>
+                            <li><Link to="/SignIn"><i className="far fa-user"></i></Link></li>  
                     </ul>
                 </div>
             </Nav>

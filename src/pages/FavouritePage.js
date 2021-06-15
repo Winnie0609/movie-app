@@ -1,18 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
 import NavBar from "../components/Header/NavBar"
 import Footer from '../components/Footer'
 import Header from "../components/Header/Header"
 import { Container, SearchResult } from "../components/Search/Search_styles"
 
 function FavouritePage(){
-    const favouriteMovie = JSON.parse(localStorage.getItem("react-movie-app-favourites")) || []
+    const [clearBtn, setClearBtn] = useState(true)
+
+    let favouriteMovie = JSON.parse(localStorage.getItem("react-movie-app-favourites")) || []
+
+    function Clearfavourite(){
+        localStorage.clear()
+        setClearBtn(false)
+    }
 
     return(
         <>
             <NavBar />
             <Header />
             <Container>
-                <h2>Liked Movie</h2>
+                <div className="btn">
+                    <h2>Liked Movie</h2>
+                    {clearBtn ? 
+                        <button className="clearBtn" onClick={() => Clearfavourite()}>Clear</button>
+                    :
+                        <button className="clearBtn" disabled>Clear</button>    
+                    }
+                </div>
             </Container>
 
             <SearchResult>

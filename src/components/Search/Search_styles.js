@@ -5,7 +5,7 @@ import styled from "styled-components"
 export const Container = styled.div`
     max-width: 1300px;
     margin: 0 auto;
-
+   
     span{
         position: relative;
         left: 90%;
@@ -25,6 +25,43 @@ export const Container = styled.div`
 
     h2{
         margin-left: 30px;
+    }
+
+    .btn{
+        display: flex;
+        align-items: center;    
+    }
+
+    .clearBtn{
+        margin-left: 30px;
+        background-color: #fff;
+        border: 2px solid #000000;
+        cursor: pointer;
+        border-radius: 20px;
+        margin-right: 15px;
+        padding: 4px 15px;
+    }
+
+    .clearBtn:hover{
+        background-color: #000000;
+        color: #fff;
+        border: 2px solid #000000;
+    }
+
+    .clearBtn:disabled,
+    .clearBtn[disabled]{
+        color: grey;
+        margin-left: 30px;
+        background-color: #fff;
+        border: 2px solid grey;
+        cursor: pointer;
+        border-radius: 20px;
+        margin-right: 15px;
+        padding: 4px 15px;
+    }
+
+    .clearBtn:disabled:hover{
+        color: grey;
     }
 `
 
